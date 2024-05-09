@@ -1,0 +1,23 @@
+%Calculation of Signal to Noise Ratio for PCM
+clear all;
+close all;
+clc;
+%Input all the required parameter
+v= input('Enter the number of bits to encode: ')
+fs = input('Enter the Sampling Frequency: ')
+%Calculate transmission BW
+BT= 0.5*v*fs;
+disp('Transmission Bandwidth in Hertz: ')
+disp(BT)
+%For Sinusoidal Signal
+SNRo =1.8+6*v;
+disp('The Signal to Noise Ratio in dB for Sinusoidal Signal is:')
+disp(SNRo)
+%For Nonsinusoidal Signal
+SNRo =4.8+6*v;
+disp('The Signal to Noise Ratio in dB for NonSinusoidal Signal is:')
+disp(SNRo)
+OUTPUT:-
+Enter the number of bits to encode: 8
+v = 8
+Enter the Sampling Frequency: 10000
