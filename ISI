@@ -1,0 +1,50 @@
+clc;
+close all;
+clear all;
+
+% Parameters
+num_symbols = 50;
+channel_delay = 5;
+channel_attenuation = 0.5;
+noise_power = 0.1;
+
+% Generate transmit symbols
+transmit_symbols = randi([0, 1], 1, num_symbols);
+fprintf('The transmitted Symbol:')
+disp(transmit_symbols);
+
+% Channel simulation
+received_symbols = zeros(1, num_symbols);
+disp('Received Symols:')
+disp(received_symbols)
+
+
+for i = 1:num_symbols
+    % Simulate ISI
+    if i > channel_delay
+        received_symbols(i) = channel_attenuation * transmit_symbols(i - channel_delay);
+    end
+    % Add noise
+    received_symbols(i) = received_symbols(i) + sqrt(noise_power) * randn();
+end
+
+% Receiver (simple detection)
+decoded_symbols = round(received_symbols);
+disp('Decoded Symbols are:')
+disp(decoded_symbols)
+
+% Calculate bit error rate
+ber = sum(decoded_symbols ~= transmit_symbols) / num_symbols;
+
+fprintf('Bit Error Rate: %.4f\n', ber);
+
+% Plot transmitted and received symbols
+figure;
+stem(transmit_symbols(1:20), 'b', 'filled');
+hold on;
+stem(received_symbols(1:20), 'r', 'filled');
+xlabel('Symbol Index');
+ylabel('Amplitude');
+legend('Transmitted', 'Received');
+title('Transmitted and Received Symbols');
+
