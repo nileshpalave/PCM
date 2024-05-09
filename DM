@@ -1,0 +1,31 @@
+clc;
+clear all;
+close all;
+%Enter all Signal Parameter
+a=input('Enter the amplitude of input signal: ');
+fm=input('Enter the modulating frequency in Hz: ');
+fs=input('Enter the sampling frequency in samples/second: ');
+ts=1/fs;
+%To calculate step size
+delta=2*3.14*a*fm*ts;
+disp('The Step Size for Delta Modulation is:')
+disp(delta);
+%Calulate Normalised Signal power
+P0max=(a*a)/2; % Power=a^2/2R, R is Normalised to 1
+%Calculate the normalised Noise Power
+sigma_q=(delta^2)/3;
+W=fm;
+N=(W*sigma_q)/fs;
+%Calculate Signal to Noise Ratio
+SNR0=P0max/N;
+SNR_dB=10*log10(SNR0);
+disp('The Signal to noise ratio in db for DM is:')
+disp(SNR_dB);
+OUTPUT:-
+Enter the amplitude of input signal: 1
+Enter the modulating frequency in Hz: 1000
+Enter the sampling frequency in samples/second: 50000
+The Step Size for Delta Modulation is:
+0.1256
+The Signal to noise ratio in db for DM is:
+36.771
